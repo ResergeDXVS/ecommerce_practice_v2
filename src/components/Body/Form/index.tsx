@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { FormBase, FormButtonSubmit, FormDecoration, FormFeedback, FormFieldset, FormInput, FormLabel, FormLine, FormSelect, FormStructure } from "./styles";
 const Form = () => {
     return (

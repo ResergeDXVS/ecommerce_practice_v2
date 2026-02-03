@@ -2,24 +2,48 @@ import React from "react";
 import { GuideBase, GuideTable, GuideTHead } from "./styles";
 import Guide from "./Guide";
 import { useNavigate } from "react-router-dom";
+import useFetchGuides from "../../../hooks/useFetchGuides";
 
 type Guide = {
-    id_guide: number,
-    origin: string,
-    destination: string,
+    id: string,
+    origin: string, 
+    destiny: string, 
     recipient: string,
-    datetime: string,
-    state: string,
+    dateCreate: string, 
+    state: string, 
 }
 
-interface SearchResultProps {
-    list:Guide[],
-}
 
-const GuideStructure = ({list}:SearchResultProps) => {
+
+const GuideStructure = () => {
     const navigate = useNavigate();
+    const { list } = useFetchGuides();
 
-    const updateRecord = (id_guide:number) =>{
+    const formatDateTime = (dateString:string) => {
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, "0");
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const year = date.getFullYear();
+        const hours = String(date.getHours()).padStart(2, "0");
+        const minutes = String(date.getMinutes()).padStart(2, "0");
+        return `${day}/${month}/${year} ${hours}:${minutes}`;
+    };
+
+
+
+        /*Traducción de valores de estado*/
+    const translateValue = (state:string) => {
+        const translations:Record<string,string> = {
+            pending:"Pendiente",
+            intransit:"En Transito",
+            delivered:"Entregado",
+        }
+        console.log(state);
+        return translations[state].toUpperCase() || state.toUpperCase();
+    }
+
+
+    const updateRecord = (id_guide:string) =>{
         console.log(id_guide);
     }
     
@@ -43,18 +67,18 @@ const GuideStructure = ({list}:SearchResultProps) => {
             </GuideTable>
             <tbody>
                 {
-                    list.map(data=>{
-                        const {id_guide, origin, destination, recipient, datetime, state} = data;
+                    list.map( data =>{
+                        const {id, origin, destiny, recipient, dateCreate, state} = data;
                         return(
                             <Guide
-                                id_guide={id_guide}
+                                id_guide={id}
                                 origin={origin}
-                                destination={destination}
+                                destination={destiny}
                                 recipient={recipient}
-                                datetime={datetime}
-                                state={state}
-                                update={()=>updateRecord(id_guide)}
-                                historical={()=>navigate(`/guides/${id_guide}`)}
+                                datetime={formatDateTime(dateCreate)}
+                                state={translateValue(state)}
+                                update={()=>updateRecord(id)}
+                                historical={()=>navigate(`/guides/${id}`)}
                             />
                         )
                     })

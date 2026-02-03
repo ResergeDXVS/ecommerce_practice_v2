@@ -2,7 +2,7 @@ import React from "react";
 import { GuideButton, GuideButtons, GuideCell, GuideRow } from "./styles";
 
 interface GuideProps {
-    id_guide: number,
+    id_guide: string,
     origin: string,
     destination: string,
     recipient: string,
