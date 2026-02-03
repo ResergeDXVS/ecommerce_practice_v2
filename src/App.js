@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import Header from "./components/Header";
+import { ThemeProvider } from "styled-components";
+import Theme from "./theme";
+import GlobalStyle from "./theme/GlobalStyles";
+import Footer from "./components/Footer";
+import Banner from "./components/Body/Banner";
+import Form from "./components/Body/Form";
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<ThemeProvider theme={Theme}>
+			<GlobalStyle/>
+			<Header/>
+			<div className="App">
+				<Routes>
+					<Route 
+						path="/" 
+						element={<Banner/>}/>
+					<Route 
+						path="/guides"
+						element={<Form/>}/>
+					<Route path="/guides/:idGuide"/>
+					<Route path="/status"/>
+					<Route path="/list_guides"/>
+				</Routes>
+			</div>
+			<Footer/>
+		</ThemeProvider>
+	);
 }
 
 export default App;
