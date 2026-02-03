@@ -7,6 +7,8 @@ import GlobalStyle from "./theme/GlobalStyles";
 import Footer from "./components/Footer";
 import Banner from "./components/Body/Banner";
 import Form from "./components/Body/Form";
+import StatusView from "./components/Body/StatusView";
+import GuideStructure from "./components/Body/Guides";
 
 
 function App() {
@@ -22,9 +24,14 @@ function App() {
 					<Route 
 						path="/guides"
 						element={<Form/>}/>
-					<Route path="/guides/:idGuide"/>
-					<Route path="/status"/>
-					<Route path="/list_guides"/>
+					<Route 
+						path="/guides/:idGuide"/>
+					<Route 
+						path="/status"
+						element={<StatusView/>}/>
+					<Route 
+						path="/list_guides"
+						element={<GuideStructure list={[]}/>}/>
 				</Routes>
 			</div>
 			<Footer/>
