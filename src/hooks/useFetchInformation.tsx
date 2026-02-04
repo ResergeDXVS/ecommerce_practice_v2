@@ -12,7 +12,7 @@ type Information = {
 }
 
 
-const generateGuideList = (): GuideInfo[] => {
+const generateGuides = (): GuideInfo[] => {
   // Si no existe, devolvemos un array vacío
     const stored = localStorage.getItem("guideRecord") || "[]";
     const guideGuideRecord: GuideInfo[] = JSON.parse(stored);
@@ -33,7 +33,7 @@ const useFetchInformation = () => {
         guides__delivered:0,
     });
     useEffect(()=>{
-        const listGuide = generateGuideList();
+        const listGuide = generateGuides();
         if (listGuide.length>0){
             setInformationState({
                 guides_total:listGuide.length,

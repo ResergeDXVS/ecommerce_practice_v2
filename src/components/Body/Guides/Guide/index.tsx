@@ -1,5 +1,6 @@
 import React from "react";
 import { GuideButton, GuideButtons, GuideCell, GuideRow } from "./styles";
+import { formatDateTime, translateValue } from "../../../../hooks/formatData";
 
 interface GuideProps {
     id_guide: string,
@@ -17,21 +18,28 @@ const Guide = ({id_guide, origin, destination, recipient, datetime, state, updat
     return(
         <GuideRow>
             <GuideCell>{id_guide}</GuideCell>
-            <GuideCell>{state}</GuideCell>
+            <GuideCell>{translateValue(state)}</GuideCell>
             <GuideCell>{origin}</GuideCell>
             <GuideCell>{recipient}</GuideCell>
             <GuideCell>{destination}</GuideCell>
-            <GuideCell>{datetime}</GuideCell>
+            <GuideCell>{formatDateTime(datetime)}</GuideCell>
             <GuideButtons>
-                <GuideButton
+                {
+                    state!=="delivered" &&
+                    (<GuideButton
                     onClick={update}>
-                    <p>Actualizar Estado</p>
-                    <img src="img/icons/update.svg"/>
-                </GuideButton>
+                        <p>Actualizar Estado</p>
+                        <img 
+                            src="/img/icons/update.svg"
+                            alt="Actualizar Estado"/>
+                    </GuideButton>)
+                }
                 <GuideButton
                     onClick={historical}>
                     <p>Ver Historial</p>
-                    <img src="img/icons/historical.svg"/>
+                    <img 
+                        src="/img/icons/historical.svg"
+                        alt="Ver Historial"/>
                 </GuideButton>
             </GuideButtons>
         </GuideRow>

@@ -15,6 +15,7 @@ const GuideRow = styled.tr`
 const GuideCell = styled.td`
     font-size: ${PxToRem(20)};
     font-weight: 500;
+    text-align: center;
     ${mediaAdjustments(css`
         font-size: ${PxToRem(16)};
     `)};

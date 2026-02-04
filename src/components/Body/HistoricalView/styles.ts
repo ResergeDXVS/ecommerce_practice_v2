@@ -2,36 +2,43 @@ import styled, { css } from "styled-components";
 import { FlexboxStructure, H1BlueStyle, mediaAdjustments, phoneAdjustments, PxToRem } from "../../../theme/styles";
 
 const HistoricalBase = styled.section`
-    width: 50%;
+    ${FlexboxStructure("column","space-between","center")}
+    width: 100%;
+    min-height: 60vh;
     height: auto;
     background-color:${props=>props.theme.colors.primary};
-    padding: 2.5rem 1.5rem;
+    padding: 10% 15%;
     box-sizing: border-box;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    box-shadow: 0px 0px 2px 2px ${props=>props.theme.colors.secondary};
-    transition: ${props=>props.theme.hovers.transition};
-    transform: translate(-50%, 100%);
-    opacity: 0; 
 
     ${mediaAdjustments(css`
-        width: 60%;
+        padding: 5% 10%;
+        ${FlexboxStructure("column","center","center")};
+        min-height: 40vh;
     `)};
     ${phoneAdjustments(css`
-        width: 75%;
+        padding: 2.5% 10%;
+        ${FlexboxStructure("column","center","center")};
+        min-height: 40vh;
     `)};
 `;
 
 const HistoricalTop = styled.div`
     ${FlexboxStructure("row","space-between","center")};
+    background-color:${props=>props.theme.colors.primary};
     padding: 3% 2%;
     height: 15%;
+
+    ${mediaAdjustments(css`
+        padding: 4% 4%;
+    `)};
+    ${phoneAdjustments(css`
+        padding: 4% 4%;
+    `)};
     h2{
         width: 100%;
         ${H1BlueStyle};
         text-align: center;
-        font-size: ${PxToRem(24)};
+        font-size: ${PxToRem(36)};
         box-sizing: border-box;
         line-height: 1;
         margin: 0;
@@ -39,7 +46,7 @@ const HistoricalTop = styled.div`
             font-size: ${PxToRem(28)};
         `)};
         b{
-            font-size: ${PxToRem(24)};
+            font-size: ${PxToRem(36)};
             ${phoneAdjustments(css`
                 font-size: ${PxToRem(28)};
             `)};

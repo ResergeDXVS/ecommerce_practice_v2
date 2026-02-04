@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 type GuideInfo = {
     id: string,
     origin: string, 
@@ -9,11 +7,7 @@ type GuideInfo = {
     state: string, 
 }
 
-type GuideList = {
-    list: GuideInfo[],
-}
-
-const generateGuideList = (): GuideInfo[] => {
+const generateGuides = (): GuideInfo[] => {
   // Si no existe, devolvemos un array vacío
     const stored = localStorage.getItem("guideRecord") || "[]";
     const guideGuideRecord: GuideInfo[] = JSON.parse(stored);
@@ -29,17 +23,4 @@ const generateGuideList = (): GuideInfo[] => {
     }));
 };
 
-
-
-const useFetchGuides = () => {
-    const [GuideState, setGuideState] = useState<GuideList>({
-        list:[],
-    });
-    useEffect(()=>{
-        const listGuide = generateGuideList();
-        setGuideState({list:listGuide});
-    },[]);
-    return GuideState;
-}
-
-export default useFetchGuides;
+export default generateGuides;

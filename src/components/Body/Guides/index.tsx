@@ -1,51 +1,69 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { GuideBase, GuideTable, GuideTHead } from "./styles";
 import Guide from "./Guide";
 import { useNavigate } from "react-router-dom";
-import useFetchGuides from "../../../hooks/useFetchGuides";
-
-type Guide = {
-    id: string,
-    origin: string, 
-    destiny: string, 
-    recipient: string,
-    dateCreate: string, 
-    state: string, 
-}
+import { GuideInfo } from "../../../hooks/GuidesType";
+import generateGuides from "../../../hooks/generateGuides";
+import generateHistoricalList from "../../../hooks/generateHistoricalGuide";
 
 
 
 const GuideStructure = () => {
     const navigate = useNavigate();
-    const { list } = useFetchGuides();
+    const [guides, setGuides] = useState<GuideInfo[]>([]);
 
-    const formatDateTime = (dateString:string) => {
-        const date = new Date(dateString);
-        const day = String(date.getDate()).padStart(2, "0");
-        const month = String(date.getMonth() + 1).padStart(2, "0");
-        const year = date.getFullYear();
-        const hours = String(date.getHours()).padStart(2, "0");
-        const minutes = String(date.getMinutes()).padStart(2, "0");
-        return `${day}/${month}/${year} ${hours}:${minutes}`;
+    // Cargar datos iniciales desde localStorage
+    useEffect(() => {
+        const stored = generateGuides();
+        setGuides(stored);
+    }, []);
+
+    const updateRecord = (id_guide: string) => {
+        const listGuide = generateGuides(); // array actual de guías
+        let historicalRecord = generateHistoricalList(); // array actual de históricos
+
+        const guide = listGuide.find(p => p.id === id_guide);
+        const index = listGuide.findIndex(p => p.id === id_guide);
+
+        if (!guide || index === -1) return;
+
+        // Determinar nuevo estado
+        let newStatus = guide.state;
+        if (guide.state === "pending") {
+        newStatus = "intransit";
+        } else if (guide.state === "intransit") {
+        newStatus = "delivered";
+        }
+
+        // Actualizar guía
+        const updatedGuide = {
+        ...guide,
+        state: newStatus,
+        dateCreate: new Date().toISOString(),
+        };
+
+        // Crear histórico
+        const Historical = {
+        guide_id: guide.id,
+        new_status: newStatus,
+        datetime: new Date().toISOString(),
+        };
+
+
+        listGuide[index] = updatedGuide;
+        historicalRecord.push(Historical);
+
+        localStorage.setItem("guideRecord", JSON.stringify(listGuide));
+        localStorage.setItem("guideHistorical", JSON.stringify(historicalRecord));
+
+        setGuides(listGuide);
     };
 
 
 
-        /*Traducción de valores de estado*/
-    const translateValue = (state:string) => {
-        const translations:Record<string,string> = {
-            pending:"Pendiente",
-            intransit:"En Transito",
-            delivered:"Entregado",
-        }
-        console.log(state);
-        return translations[state].toUpperCase() || state.toUpperCase();
-    }
 
 
-    const updateRecord = (id_guide:string) =>{
-        console.log(id_guide);
-    }
+
     
     return(
         <GuideBase>
@@ -64,26 +82,28 @@ const GuideStructure = () => {
                         <th><strong>Acciones</strong></th>
                     </tr>
                 </GuideTHead>
+                <tbody>
+                    {
+                        guides.map( data =>{
+                            const {id, origin, destiny, recipient, dateCreate, state} = data;
+                            console.log({id, origin, destiny, recipient, dateCreate, state});
+                            return(
+                                <Guide
+                                    id_guide={id}
+                                    origin={origin}
+                                    destination={destiny}
+                                    recipient={recipient}
+                                    datetime={dateCreate}
+                                    state={state}
+                                    update={()=>updateRecord(id)}
+                                    historical={()=>navigate(`/guides/${id}`)}
+                                />
+                            )
+                        })
+                    }
+                </tbody>
             </GuideTable>
-            <tbody>
-                {
-                    list.map( data =>{
-                        const {id, origin, destiny, recipient, dateCreate, state} = data;
-                        return(
-                            <Guide
-                                id_guide={id}
-                                origin={origin}
-                                destination={destiny}
-                                recipient={recipient}
-                                datetime={formatDateTime(dateCreate)}
-                                state={translateValue(state)}
-                                update={()=>updateRecord(id)}
-                                historical={()=>navigate(`/guides/${id}`)}
-                            />
-                        )
-                    })
-                }
-            </tbody>
+            
         </GuideBase>
     );
 }

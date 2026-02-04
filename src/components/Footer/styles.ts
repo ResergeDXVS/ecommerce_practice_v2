@@ -39,7 +39,7 @@ const FooterCopyrights = styled.section`
         color: $mainColorNavy;
         text-align: center;
         ${phoneAdjustments(css`
-            font-size: ${PxToRem(10)};
+            font-size: ${PxToRem(16)};
         `)};
     }
 `;
@@ -75,11 +75,11 @@ const FooterContacts = styled.section`
         > a{
             ${AFooterStyle};
             ${phoneAdjustments(css`
-                font-size: ${PxToRem(10)};
+                font-size: ${PxToRem(16)};
             `)};
         }
         ${phoneAdjustments(css`
-            font-size: ${PxToRem(10)};
+            font-size: ${PxToRem(14)};
         `)};
     }
 `;
@@ -96,14 +96,20 @@ const FooterNetworks = styled.section`
         gap:12px;
         i{ 
             ${FlexboxStructure("row","space-between","center")};
-            font-size: 30px;
+            font-size: ${PxToRem(30)};
             margin:0;
             line-height: 1;
             gap:1rem;
+            ${phoneAdjustments(css`
+                font-size: ${PxToRem(24)};
+            `)};
             p{
                 font-size: ${PxToRem(24)};
                 text-align: center;
                 margin: 0;
+                ${phoneAdjustments(css`
+                    font-size: ${PxToRem(16)};
+                `)};
             }
         }
     }

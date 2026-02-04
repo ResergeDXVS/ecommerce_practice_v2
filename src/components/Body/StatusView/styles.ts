@@ -32,13 +32,10 @@ const StatusInformation = styled.div`
         border-radius: 35px;
     `)};
 
-    > h3{
+    h3{
         ${H3BlueStyle};
         flex: 1;
         margin: 0;
-        @include phone_adjustments{
-            font-size: px-to-rem(28);
-        }
         ${phoneAdjustments(css`
             font-size: ${PxToRem(28)};
         `)};
@@ -47,15 +44,20 @@ const StatusInformation = styled.div`
         ${PTagStyle};
         flex: 1;
         margin: 0;
+        font-size: ${PxToRem(28)};
+        ${phoneAdjustments(css`
+            font-size: ${PxToRem(24)};
+        `)};
         >b{
             ${BTagStyle};
+            line-height:1;
+            margin:0;
+            font-size: ${PxToRem(32)};
             ${phoneAdjustments(css`
-                font-size: ${PxToRem(24)};
+                font-size: ${PxToRem(28)};
             `)};
         }
-        ${phoneAdjustments(css`
-            font-size: ${PxToRem(20)};
-        `)};
+        
     }
 `;
 

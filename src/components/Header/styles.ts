@@ -10,7 +10,6 @@ const HeaderBase = styled.header`
     gap: 14px;
     box-sizing: border-box;
     ${phoneAdjustments(css`
-        height: 80px;
         padding: 0 20px;
     `)};
     
@@ -34,12 +33,15 @@ const HeaderPages = styled.b`
         ${mediaAdjustments(css`
             ${PxToRem(12)};
         `)};
+        ${mediaAdjustments(css`
+            ${PxToRem(10)};
+        `)};
     }
     ${mediaAdjustments(css`
         text-align: center;
     `)};
     ${phoneAdjustments(css`
-        display: none;
+        text-align: center;
     `)};
 `;
 
