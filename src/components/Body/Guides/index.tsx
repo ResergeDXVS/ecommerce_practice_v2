@@ -18,6 +18,9 @@ const GuideStructure = () => {
         setGuides(stored);
     }, []);
 
+    useEffect(() => { 
+        console.log('El estado de guías ha cambiado:', guides); 
+    }, [guides]);
     const updateRecord = (id_guide: string) => {
         const listGuide = generateGuides(); // array actual de guías
         let historicalRecord = generateHistoricalList(); // array actual de históricos
