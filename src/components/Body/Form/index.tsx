@@ -13,6 +13,7 @@ type FormState = {
 };
 
 const Form = () => {
+    const [submitted, setSubmitted] = useState<boolean|null>(null);
     const [form, setForm] = useState<FormState>({
         id_guide: "",
         origin: "",
@@ -21,7 +22,7 @@ const Form = () => {
         datetime: "",
         state: "",
     });
-
+    
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setForm(prev => ({ ...prev, [name]: value }));
@@ -29,11 +30,27 @@ const Form = () => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        
+        if (!form.id_guide ||
+            !form.origin ||
+            !form.destination ||
+            !form.recipient ||
+            !form.datetime ||
+            !form.state) {
+                setSubmitted(true);
+            return;
+        }
 
-        // Traemos lo que ya existe en localStorage
+
+
         let guideRecord = generateGuides();
         let historicalRecord = generateHistoricalList();
-        // Creamos el nuevo registro
+        const index = guideRecord.find(p=>p.id===form.id_guide);
+        if (index){
+            alert(`El Registro de guía ${form.id_guide} ya existe, favor de revisar los datos.`);
+            return;
+        }
+
         const newGuide = {
             id: form.id_guide,
             origin: form.origin.toUpperCase(),
@@ -47,13 +64,12 @@ const Form = () => {
             new_status: form.state,
             datetime: form.datetime,
         }
-        // Lo agregamos al array
         guideRecord.push(newGuide);
         historicalRecord.push(Historical);
-        // Guardamos en localStorage
+
         localStorage.setItem("guideRecord", JSON.stringify(guideRecord));
         localStorage.setItem("guideHistorical", JSON.stringify(historicalRecord));
-        // Reiniciamos el formulario
+
         setForm({
             id_guide: "",
             origin: "",
@@ -62,6 +78,8 @@ const Form = () => {
             datetime: "",
             state: "",
         });
+        setSubmitted(null);
+        alert(`Registro de guía ${form.id_guide} guardada correctamente.`);
     };
 
     return (
@@ -77,9 +95,13 @@ const Form = () => {
                 type="number"
                 value={form.id_guide}
                 onChange={handleChange}
-                required
+                $invalid={submitted && !form.id_guide}
+
                 />
-                <FormFeedback>Este campo es obligatorio.</FormFeedback>
+                <FormFeedback
+                    $invalid={submitted && !form.id_guide}
+                    >Este campo es obligatorio.
+                </FormFeedback>
             </FormLine>
 
             <FormLine>
@@ -90,9 +112,12 @@ const Form = () => {
                 type="text"
                 value={form.origin}
                 onChange={handleChange}
-                required
+                $invalid={submitted && !form.origin}
                 />
-                <FormFeedback>Por favor ingresa el origen.</FormFeedback>
+                <FormFeedback
+                    $invalid={submitted && !form.origin}
+                    >Por favor ingresa el origen.
+                </FormFeedback>
             </FormLine>
 
             <FormLine>
@@ -103,9 +128,12 @@ const Form = () => {
                 type="text"
                 value={form.destination}
                 onChange={handleChange}
-                required
+                $invalid={submitted && !form.destination}
                 />
-                <FormFeedback>Por favor ingresa el destino.</FormFeedback>
+                <FormFeedback
+                    $invalid={submitted && !form.destination}
+                    >Por favor ingresa el destino.
+                </FormFeedback>
             </FormLine>
 
             <FormLine>
@@ -116,9 +144,12 @@ const Form = () => {
                 type="text"
                 value={form.recipient}
                 onChange={handleChange}
-                required
+                $invalid={submitted && !form.recipient}
                 />
-                <FormFeedback>Por favor ingresa el destinatario.</FormFeedback>
+                <FormFeedback
+                    $invalid={submitted && !form.recipient}
+                    >Por favor ingresa el destinatario.
+                </FormFeedback>
             </FormLine>
 
             <FormLine>
@@ -129,9 +160,12 @@ const Form = () => {
                 type="datetime-local"
                 value={form.datetime}
                 onChange={handleChange}
-                required
+                $invalid={submitted && !form.datetime}
                 />
-                <FormFeedback>Por favor selecciona una fecha y hora.</FormFeedback>
+                <FormFeedback
+                    $invalid={submitted && !form.datetime}
+                    >Por favor selecciona una fecha y hora.
+                </FormFeedback>
             </FormLine>
 
             <FormLine>
@@ -141,14 +175,16 @@ const Form = () => {
                 name="state"
                 value={form.state}
                 onChange={handleChange}
-                required
+                $invalid={submitted && !form.state}
                 >
                 <option value="">-- Selecciona --</option>
                 <option value="pending">Pendiente</option>
                 <option value="intransit">En tránsito</option>
                 <option value="delivered">Entregado</option>
                 </FormSelect>
-                <FormFeedback>Debes seleccionar un estado.</FormFeedback>
+                <FormFeedback
+                    $invalid={submitted && !form.state}
+                >Debes seleccionar un estado.</FormFeedback>
             </FormLine>
 
             <FormLine>

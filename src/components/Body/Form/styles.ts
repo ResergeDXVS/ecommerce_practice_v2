@@ -1,6 +1,8 @@
 import styled, { css } from "styled-components";
 import { FlexboxStructure, H2BlueStyle, mediaAdjustments, phoneAdjustments, PxToRem } from "../../../theme/styles";
-import { isExportSpecifier } from "typescript";
+interface FormCheck {
+    $invalid: boolean|null, 
+}
 
 const FormBase = styled.section`
     width: 100%;
@@ -98,7 +100,9 @@ const FormLabel = styled.label`
     `)};
 `;
 
-const FormInput = styled.input`
+
+
+const FormInput = styled.input<FormCheck>`
     grid-area: campo;
     flex-grow: 1;
     font-size: ${PxToRem(22)};
@@ -108,23 +112,17 @@ const FormInput = styled.input`
     background-color: ${props => props.theme.colors.secondary};
     font-weight: 600;
 
-    
-    ${phoneAdjustments(css`
-        font-size: ${PxToRem(16)};
-    `)};
-
-    .was-validated input:invalid,
-    .was-validated select:invalid {
-        border: 3px solid ${props=>props.theme.colors.wrong};
+    ${({ $invalid, theme }) =>
+        $invalid === true
+        ? css`border-color: ${theme.colors.wrong};`
+        : $invalid === false
+            ? css`border-color: ${theme.colors.valid};`
+            : css`border-color: ${theme.colors.primary};`
     }
 
-    .was-validated input:valid,
-    .was-validated select:valid {
-        border: 3px solid ${props=>props.theme.colors.valid};
-    }
 `;
 
-const FormSelect = styled.select`
+const FormSelect = styled.select<FormCheck>`
     grid-area: campo;
     flex-grow: 1;
     font-size: ${PxToRem(22)};
@@ -136,12 +134,22 @@ const FormSelect = styled.select`
     ${phoneAdjustments(css`
         font-size: ${PxToRem(16)};
     `)};
+    ${({ $invalid, theme }) =>
+        $invalid === true
+        ? css`border-color: ${theme.colors.wrong};`
+        : $invalid === false
+            ? css`border-color: ${theme.colors.valid};`
+            : css`border-color: ${theme.colors.primary};`
+    }
 `;
 
-const FormFeedback = styled.div`
-    display: none;
-
+const FormFeedback = styled.div<FormCheck>`
+    font-size: 0.8rem;
+    color: ${props => props.theme.colors.wrong};
+    margin-top: 4px;
+    display: ${({ $invalid }) => ($invalid ? "block" : "none")};
 `;
+
 
 const FormButtonSubmit = styled.input`
     grid-area: campo;
