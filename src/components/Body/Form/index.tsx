@@ -1,19 +1,16 @@
 import React, { useState } from "react";
 import { FormBase, FormButtonSubmit, FormDecoration, FormFeedback, FormFieldset, FormInput, FormLabel, FormLine, FormSelect, FormStructure } from "./styles";
-import generateGuides from "../../../hooks/generateGuides";
-import generateHistoricalList from "../../../hooks/generateHistoricalGuide";
+import { useDispatch } from "react-redux";
+import { addGuide } from "../../../store/guidesSlice";
+import { DELIVERED, FormState, GuideInfo, INTRANSIT, PENDING } from "../../../store/status";
+import { useAppSelector } from "../../../store/store";
 
-type FormState = {
-  id_guide: string;
-  origin: string;
-  destination: string;
-  recipient: string;
-  datetime: string;
-  state: string;
-};
+
 
 const Form = () => {
     const [submitted, setSubmitted] = useState<boolean|null>(null);
+    const dispatch = useDispatch();
+    const list_guides = useAppSelector(state => state.guides.guides);
     const [form, setForm] = useState<FormState>({
         id_guide: "",
         origin: "",
@@ -30,7 +27,6 @@ const Form = () => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
         if (!form.id_guide ||
             !form.origin ||
             !form.destination ||
@@ -40,36 +36,21 @@ const Form = () => {
                 setSubmitted(true);
             return;
         }
-
-
-
-        let guideRecord = generateGuides();
-        let historicalRecord = generateHistoricalList();
-        const index = guideRecord.find(p=>p.id===form.id_guide);
+        console.log("envio de datos");
+        const index = list_guides.find(p=>p.id===form.id_guide);
         if (index){
             alert(`El Registro de guía ${form.id_guide} ya existe, favor de revisar los datos.`);
             return;
         }
-
-        const newGuide = {
+        const newGuide:GuideInfo = {
             id: form.id_guide,
-            origin: form.origin.toUpperCase(),
-            destiny: form.destination.toUpperCase(),
+            origin: form.origin.toUpperCase(), 
+            destiny: form.destination.toUpperCase(), 
             recipient: form.recipient.toUpperCase(),
             dateCreate: form.datetime.toUpperCase(),
-            state: form.state,
-        };
-        const Historical = {
-            guide_id: form.id_guide,
-            new_status: form.state,
-            datetime: form.datetime,
+            state: form.state
         }
-        guideRecord.push(newGuide);
-        historicalRecord.push(Historical);
-
-        localStorage.setItem("guideRecord", JSON.stringify(guideRecord));
-        localStorage.setItem("guideHistorical", JSON.stringify(historicalRecord));
-
+        dispatch(addGuide(newGuide));
         setForm({
             id_guide: "",
             origin: "",
@@ -80,6 +61,7 @@ const Form = () => {
         });
         setSubmitted(null);
         alert(`Registro de guía ${form.id_guide} guardada correctamente.`);
+        
     };
 
     return (
@@ -178,9 +160,9 @@ const Form = () => {
                 $invalid={submitted && !form.state}
                 >
                 <option value="">-- Selecciona --</option>
-                <option value="pending">Pendiente</option>
-                <option value="intransit">En tránsito</option>
-                <option value="delivered">Entregado</option>
+                <option value={PENDING}>Pendiente</option>
+                <option value={INTRANSIT}>En tránsito</option>
+                <option value={DELIVERED}>Entregado</option>
                 </FormSelect>
                 <FormFeedback
                     $invalid={submitted && !form.state}

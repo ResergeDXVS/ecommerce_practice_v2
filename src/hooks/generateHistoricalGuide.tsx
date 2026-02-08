@@ -1,10 +1,4 @@
-
-type HistoricalInfo = {
-    guide_id: string,
-    new_status: string,
-    datetime: string,
-}
-
+import { HistoricalInfo } from "../store/status";
 
 const generateHistoricalList = (): HistoricalInfo[] => {
   // Si no existe, devolvemos un array vacío
