@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { GuideBase, GuideTable, GuideTHead } from "./styles";
 import Guide from "./Guide";
 import { useNavigate } from "react-router-dom";
