@@ -1,16 +1,17 @@
 import React, { Fragment } from "react";
 import { HistoricalBase, HistoricalTable, HistoricalTop } from "./styles";
 import { useParams } from "react-router-dom";
-import useFetchHistoricals from "../../../hooks/useFetchHistoricals";
 import Historical from "./Historical";
 import { formatDateTime, translateValue } from "../../../hooks/formatData";
+import { useAppSelector } from "../../../store/store";
 
 
 
 const HistoricalView = () => {
     const { idGuide } = useParams<{ idGuide: string }>();
     
-    const { list } = useFetchHistoricals(idGuide ?? "");
+    const historical = useAppSelector(state=>state.guides.historical);
+    const list = historical.filter(history => history.guide_id === idGuide);
     return(
         <Fragment>
             <HistoricalTop>
@@ -31,7 +32,7 @@ const HistoricalView = () => {
                                 return(
                                     <Historical
                                         new_status={translateValue(new_status)}
-                                        datetime={formatDateTime( datetime)}/>
+                                        datetime={formatDateTime(datetime)}/>
                                 );
                             })
                         }

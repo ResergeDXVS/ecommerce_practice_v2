@@ -1,9 +1,12 @@
 import React from "react";
 import { StatusInformation, StatusStructure } from "./styles";
-import useFetchInformation from "../../../hooks/useFetchInformation";
+import { useAppSelector } from "../../../store/store";
 
 const StatusView = () => {
-    const { guides_total, guides__transit, guides__delivered } = useFetchInformation();
+    const guides_total = useAppSelector(state => state.guides.guides_total);
+    const guides__transit = useAppSelector(state => state.guides.guides__transit);
+    const guides__delivered = useAppSelector(state => state.guides.guides__delivered);
+
     return(
         <StatusStructure>
             <StatusInformation>
