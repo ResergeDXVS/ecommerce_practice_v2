@@ -36,7 +36,6 @@ const Form = () => {
                 setSubmitted(true);
             return;
         }
-        console.log("envio de datos");
         const index = list_guides.find(p=>p.id===form.id_guide);
         if (index){
             alert(`El Registro de guía ${form.id_guide} ya existe, favor de revisar los datos.`);

@@ -28,9 +28,10 @@ const HistoricalView = () => {
                     <tbody>
                         {
                             list.map( item =>{
-                                const {new_status, datetime} = item;
+                                const {guide_id, new_status, datetime} = item;
                                 return(
                                     <Historical
+                                        key={guide_id} 
                                         new_status={translateValue(new_status)}
                                         datetime={formatDateTime(datetime)}/>
                                 );

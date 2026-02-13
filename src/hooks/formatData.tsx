@@ -19,8 +19,7 @@ const translateValue = (state:string) => {
         intransit:"En Transito",
         delivered:"Entregado",
     }
-    console.log(state);
-    return translations[state].toUpperCase() || state.toUpperCase();
+    return translations[state].toUpperCase();
 }
 
 export {

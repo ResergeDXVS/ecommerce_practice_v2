@@ -33,7 +33,6 @@ const guideSlice = createSlice({
                 new_status: action.payload.state,
                 datetime: action.payload.dateCreate,
             }
-            console.log("Efsdfdsf");
             state.guides.push(action.payload);
             state.historical.push(Historical);
             state.guides_total = state.guides.length;
@@ -42,9 +41,7 @@ const guideSlice = createSlice({
             
         },
         updateGuide: (state, action:PayloadAction<string>) => {
-            console.log("asdasdad");
             const guide = state.guides.find((guide:GuideInfo) => guide.id === action.payload);
-            console.log("ACTUALIZAR", guide);
             if (guide){
                 if (guide.state === PENDING) {
                     guide.state = INTRANSIT;
