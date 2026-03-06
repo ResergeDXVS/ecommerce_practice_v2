@@ -19,6 +19,12 @@ const HeaderLogo = styled.img`
     width: 240px;
 `;
 
+const HeaderNav = styled.nav`
+    ${FlexboxStructure("row","space-evenly","center")};
+    width: 100%;
+    gap: 10px;
+`;
+
 const HeaderPages = styled.b`
     font-size: ${PxToRem(14)};
     transition: ${props=>props.theme.hovers.transition};
@@ -49,5 +55,6 @@ export {
     HeaderBase,
     HeaderLogo,
     HeaderPages,
+    HeaderNav
 }
 

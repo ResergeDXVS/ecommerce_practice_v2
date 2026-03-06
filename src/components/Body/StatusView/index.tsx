@@ -8,9 +8,9 @@ const StatusView = () => {
     const guides__delivered = useAppSelector(state => state.guides.guides__delivered);
 
     return(
-        <StatusStructure>
+        <StatusStructure aria-labelledby="statusTitle">
             <StatusInformation>
-                <h3>Estado general de Gu&iacute;as</h3>
+                <h3 id="statusTitle">Estado general de Gu&iacute;as</h3>
             </StatusInformation>
             <StatusInformation id="guides__total">
                 <p>N&uacute;mero total de gu&iacute;as activas: <b>{guides_total}</b></p>

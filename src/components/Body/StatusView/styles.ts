@@ -8,7 +8,7 @@ const StatusStructure = styled.section`
     padding:5% 10%;
     background: linear-gradient(
         135deg, 
-        ${props=>props.theme.colors.white} 50%, 
+        ${props=>props.theme.colors.primary} 50%, 
         ${props=>props.theme.colors.secondary} 50%);
     gap:3%;
     ${phoneAdjustments(css`
@@ -24,7 +24,7 @@ const StatusInformation = styled.div`
     max-width: 1200px;
     margin: 2% 0;
     padding: 2rem;
-    background-color: ${props=>props.theme.colors.white};
+    background-color: ${props=>props.theme.colors.primary};
     border-radius: 70px;
     
     ${phoneAdjustments(css`

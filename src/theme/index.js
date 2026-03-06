@@ -11,7 +11,7 @@ const Theme = {
         secondary: '"Roboto", sans-serif',
     },
     hovers:{
-        transition:'background-color 0.5s ease',
+        transition:'all 0.2s ease',
         scale: 'scale(1.1)',
         filter: 'brightness(1.5)',
     }   

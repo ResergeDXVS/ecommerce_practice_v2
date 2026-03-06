@@ -7,12 +7,14 @@ const LinkStyle = css`
 `;
 
 const H1BlueStyle = css`
+	font-family: ${p=>p.theme.fonts.primary};
 	font-weight: 800;
 	font-size: 2.8rem;
 	color: ${props=>props.theme.colors.secondary};
 `;
 
 const H2BlueStyle = css`
+	font-family: ${p=>p.theme.fonts.primary};
 	font-weight: 700;
 	font-size: 3.2rem;
 	color: ${props=>props.theme.colors.primary};
@@ -20,32 +22,37 @@ const H2BlueStyle = css`
 `;
 
 const H3BlueStyle = css`
+	font-family: ${p=>p.theme.fonts.primary};
 	font-size: 3rem;
 	font-weight: 800;
 	color: ${props=>props.theme.colors.secondary};
 `;
 
 const PTagStyle = css`
+	font-family: ${p=>p.theme.fonts.secondary};
 	font-size: 1.5rem;
-	font-weight: 400;
-	color: ${props=>props.theme.colors.primary};
+	font-weight: 500;
+	color: ${props=>props.theme.colors.white};
 `;
 
 const BTagStyle = css`
+	font-family: ${p=>p.theme.fonts.secondary};
 	font-size: 1.6rem;
 	font-weight: 800;
 	color: ${props=>props.theme.colors.secondary};
 `;
 
 const AFooterStyle = css`
+	font-family: ${p=>p.theme.fonts.secondary};
 	font-weight: 500;
 	text-decoration: none;
 	color: ${props=>props.theme.colors.white};
 `;
 
-const PWhiteStyle = css`
-	font-weight: 500;
-	color: ${props=>props.theme.colors.primary};
+const PStyle = css`
+	font-family: ${p=>p.theme.fonts.secondary};
+	font-weight: 400;
+	color: ${props=>props.theme.colors.secondary};
 `;
 
 
@@ -83,7 +90,7 @@ export {
 	PTagStyle,
 	BTagStyle,
 	AFooterStyle,
-	PWhiteStyle,
+	PStyle,
 	FlexboxStructure,
 	PxToRem,
 	phoneAdjustments,
