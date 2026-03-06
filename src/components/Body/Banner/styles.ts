@@ -28,7 +28,7 @@ const BannerStructure = styled.section`
 
 const MainStructure = styled.section`
     width: 100%;
-    padding: 50px;
+    padding: 60px 80px;
     background-color: ${props => props.theme.colors.white};
     box-sizing: border-box;
     ${FlexboxStructure("column","space-around","stretch")};
@@ -43,6 +43,7 @@ const MainStructure = styled.section`
     }
     p{
         ${PTagStyle};
+        color: ${p=>p.theme.colors.primary};
         font-weight: 400;
         line-height: 1.2;
         text-align: justify;

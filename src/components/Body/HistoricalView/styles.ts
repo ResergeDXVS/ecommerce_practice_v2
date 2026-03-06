@@ -67,7 +67,6 @@ const HistoricalTable = styled.table`
             text-align: center;
             vertical-align: middle;
             padding: 1rem;
-            font-size: ${PxToRem(20)};
             th{
                 color:${props=>props.theme.colors.primary};
                 background-color: ${props=>props.theme.colors.white};
@@ -75,7 +74,7 @@ const HistoricalTable = styled.table`
                 vertical-align: middle;
                 padding: 0.3rem;
                 strong{
-                    font-size: ${PxToRem(18)};
+                    font-size: ${PxToRem(28)};
                 }
                 @include phone_adjustments{
                     height: 3rem;
@@ -95,10 +94,10 @@ const HistoricalTable = styled.table`
             text-align: center;
             vertical-align: middle;
             padding: 1rem;
-            font-size: ${PxToRem(20)};
             td{
-                font-size: ${PxToRem(18)};
+                font-size: ${PxToRem(24)};
                 font-weight: 500;
+                padding:1rem;
             }
         }
     }

@@ -44,26 +44,26 @@ const GuideTHead = styled.thead`
         height: 100%;
         text-align: center;
         vertical-align: middle;
-        padding: 1rem;
-        font-size: ${PxToRem(20)};
+        
         th{
             color:${props=>props.theme.colors.primary};
             background-color: ${props=>props.theme.colors.white};
             height: 6rem;
             text-align: center;
             vertical-align: middle;
-            padding: 0.3rem;
+            padding: 1rem;
             strong{
                 font-size: ${PxToRem(20)};
                 ${mediaAdjustments(css`
-                    font-size: ${PxToRem(16)};
+                    font-size: ${PxToRem(18)};
                 `)};
                 ${phoneAdjustments(css`
-                    font-size: ${PxToRem(12)};
+                    font-size: ${PxToRem(16)};
                 `)};
             }
             ${phoneAdjustments(css`
                 height: 3rem;
+                padding: .25rem;
             `)};
         }
         ${phoneAdjustments(css`

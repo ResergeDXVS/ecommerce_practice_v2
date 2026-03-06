@@ -3,7 +3,7 @@ import { FlexboxStructure, mediaAdjustments, phoneAdjustments, PxToRem } from ".
 
 const GuideRow = styled.tr`
     &:nth-child(2n-1){
-        color:${props=>props.theme.colors.white};
+        color:${props=>props.theme.colors.primary};
         background-color: ${props=>props.theme.colors.secondary};
     }
     &:nth-child(2n){
@@ -16,11 +16,14 @@ const GuideCell = styled.td`
     font-size: ${PxToRem(20)};
     font-weight: 500;
     text-align: center;
+    padding:1.25rem .75rem;
     ${mediaAdjustments(css`
-        font-size: ${PxToRem(16)};
+        font-size: ${PxToRem(18)};
+        padding:1rem;
     `)};
     ${phoneAdjustments(css`
-        font-size: ${PxToRem(12)};
+        font-size: ${PxToRem(16)};
+        padding:1rem;
     `)};
 `;
 
@@ -30,11 +33,14 @@ const GuideButtons = styled.td`
     width: 100%;
     height: 100%;
     gap:4px;
+    padding:1.25rem .75rem;
     ${mediaAdjustments(css`
         ${FlexboxStructure("row","center","center")};
+        padding:1rem;
     `)};
     ${phoneAdjustments(css`
         ${FlexboxStructure("row","center","center")};
+        padding:1rem;
     `)};
 `;
 
