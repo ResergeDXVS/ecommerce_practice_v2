@@ -40,6 +40,7 @@ const GuideStructure = () => {
                             const { id, origin, destiny, recipient, dateCreate, state } = data;
                             return (
                             <Guide
+                                key={id}
                                 id_guide={id}
                                 origin={origin}
                                 destination={destiny}
