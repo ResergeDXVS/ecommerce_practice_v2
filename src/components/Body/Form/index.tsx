@@ -64,118 +64,130 @@ const Form = () => {
     };
 
     return (
-        <FormBase>
-        <FormStructure onSubmit={handleSubmit}>
-            <h2>Registro de guías</h2>
-            <FormFieldset>
-            <FormLine>
-                <FormLabel htmlFor="id_guide">Número de guía:</FormLabel>
-                <FormInput
-                id="id_guide"
-                name="id_guide"
-                type="number"
-                value={form.id_guide}
-                onChange={handleChange}
-                $invalid={submitted && !form.id_guide}
-
-                />
-                <FormFeedback
+        <FormBase aria-labelledby="recordTitle">
+            <FormStructure onSubmit={handleSubmit}>
+                <h2 id="recordTitle">Registro de guías</h2>
+                <FormFieldset>
+                <FormLine>
+                    <FormLabel htmlFor="id_guide">Número de guía:</FormLabel>
+                    <FormInput
+                    id="id_guide"
+                    name="id_guide"
+                    type="number"
+                    value={form.id_guide}
+                    onChange={handleChange}
                     $invalid={submitted && !form.id_guide}
-                    >Este campo es obligatorio.
-                </FormFeedback>
-            </FormLine>
+                    aria-label="Ingresá el número de guía"
+                    />
+                    <FormFeedback
+                        $invalid={submitted && !form.id_guide}
+                        >Este campo es obligatorio.
+                    </FormFeedback>
+                </FormLine>
 
-            <FormLine>
-                <FormLabel htmlFor="origin">Origen:</FormLabel>
-                <FormInput
-                id="origin"
-                name="origin"
-                type="text"
-                value={form.origin}
-                onChange={handleChange}
-                $invalid={submitted && !form.origin}
-                />
-                <FormFeedback
+                <FormLine>
+                    <FormLabel htmlFor="origin">Origen:</FormLabel>
+                    <FormInput
+                    id="origin"
+                    name="origin"
+                    type="text"
+                    value={form.origin}
+                    onChange={handleChange}
                     $invalid={submitted && !form.origin}
-                    >Por favor ingresa el origen.
-                </FormFeedback>
-            </FormLine>
+                    aria-label="Ingresa el lugar de origen del paquete"
+                    />
+                    <FormFeedback
+                        $invalid={submitted && !form.origin}
+                        >Por favor ingresa el origen.
+                    </FormFeedback>
+                </FormLine>
 
-            <FormLine>
-                <FormLabel htmlFor="destination">Destino:</FormLabel>
-                <FormInput
-                id="destination"
-                name="destination"
-                type="text"
-                value={form.destination}
-                onChange={handleChange}
-                $invalid={submitted && !form.destination}
-                />
-                <FormFeedback
+                <FormLine>
+                    <FormLabel htmlFor="destination">Destino:</FormLabel>
+                    <FormInput
+                    id="destination"
+                    name="destination"
+                    type="text"
+                    value={form.destination}
+                    onChange={handleChange}
                     $invalid={submitted && !form.destination}
-                    >Por favor ingresa el destino.
-                </FormFeedback>
-            </FormLine>
+                    aria-label="Ingresa el lugar de destino del paquete"
+                    />
+                    <FormFeedback
+                        $invalid={submitted && !form.destination}
+                        >Por favor ingresa el destino.
+                    </FormFeedback>
+                </FormLine>
 
-            <FormLine>
-                <FormLabel htmlFor="recipient">Destinatario:</FormLabel>
-                <FormInput
-                id="recipient"
-                name="recipient"
-                type="text"
-                value={form.recipient}
-                onChange={handleChange}
-                $invalid={submitted && !form.recipient}
-                />
-                <FormFeedback
+                <FormLine>
+                    <FormLabel htmlFor="recipient">Destinatario:</FormLabel>
+                    <FormInput
+                    id="recipient"
+                    name="recipient"
+                    type="text"
+                    value={form.recipient}
+                    onChange={handleChange}
                     $invalid={submitted && !form.recipient}
-                    >Por favor ingresa el destinatario.
-                </FormFeedback>
-            </FormLine>
+                    aria-label="Ingresa el nombre del destinatario"
+                    />
+                    <FormFeedback
+                        $invalid={submitted && !form.recipient}
+                        >Por favor ingresa el destinatario.
+                    </FormFeedback>
+                </FormLine>
 
-            <FormLine>
-                <FormLabel htmlFor="datetime">Fecha de creación:</FormLabel>
-                <FormInput
-                id="datetime"
-                name="datetime"
-                type="datetime-local"
-                value={form.datetime}
-                onChange={handleChange}
-                $invalid={submitted && !form.datetime}
-                />
-                <FormFeedback
+                <FormLine>
+                    <FormLabel htmlFor="datetime">Fecha de creación:</FormLabel>
+                    <FormInput
+                    id="datetime"
+                    name="datetime"
+                    type="datetime-local"
+                    value={form.datetime}
+                    onChange={handleChange}
                     $invalid={submitted && !form.datetime}
-                    >Por favor selecciona una fecha y hora.
-                </FormFeedback>
-            </FormLine>
+                    aria-label="Ingresa la fecha de creación del registro del paquete"
+                    />
+                    <FormFeedback
+                        $invalid={submitted && !form.datetime}
+                        >Por favor selecciona una fecha y hora.
+                    </FormFeedback>
+                </FormLine>
 
-            <FormLine>
-                <FormLabel htmlFor="state">Selecciona el estado inicial</FormLabel>
-                <FormSelect
-                id="state"
-                name="state"
-                value={form.state}
-                onChange={handleChange}
-                $invalid={submitted && !form.state}
-                >
-                <option value="">-- Selecciona --</option>
-                <option value={PENDING}>Pendiente</option>
-                <option value={INTRANSIT}>En tránsito</option>
-                <option value={DELIVERED}>Entregado</option>
-                </FormSelect>
-                <FormFeedback
+                <FormLine>
+                    <FormLabel htmlFor="state">Selecciona el estado inicial</FormLabel>
+                    <FormSelect
+                    id="state"
+                    name="state"
+                    value={form.state}
+                    onChange={handleChange}
                     $invalid={submitted && !form.state}
-                >Debes seleccionar un estado.</FormFeedback>
-            </FormLine>
+                    aria-label="Selecciona el estado inicial del paquete"
+                    >
+                    <option value="" aria-valuetext="Sin seleccion del estado">-- Selecciona --</option>
+                    <option value={PENDING} aria-valuetext="Estado pendiente del paquete">Pendiente</option>
+                    <option value={INTRANSIT} aria-valuetext="Paquete en transito de envio">En tránsito</option>
+                    <option value={DELIVERED} aria-valuetext="Paquete entregado">Entregado</option>
+                    </FormSelect>
+                    <FormFeedback
+                        $invalid={submitted && !form.state}
+                    >Debes seleccionar un estado.</FormFeedback>
+                </FormLine>
 
-            <FormLine>
-                <FormButtonSubmit id="submit" type="submit" value="REGISTRAR" />
-            </FormLine>
-            </FormFieldset>
-        </FormStructure>
-        <FormDecoration>
-            <img src="/img/icons/clipboard.png" alt="Registro" />
-        </FormDecoration>
+                <FormLine>
+                    <FormButtonSubmit 
+                        aria-label="Enviar información del paquete para registrar"
+                        id="submit" 
+                        type="submit" 
+                        value="REGISTRAR" />
+                </FormLine>
+                </FormFieldset>
+            </FormStructure>
+            <FormDecoration>
+                <img
+                    aria-label="Icono decorativo del registro" 
+                    src="/img/icons/clipboard.png" 
+                    alt="Registro" />
+            </FormDecoration>
         </FormBase>
     );
 };

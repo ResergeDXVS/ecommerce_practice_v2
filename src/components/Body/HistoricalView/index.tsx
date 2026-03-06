@@ -15,9 +15,10 @@ const HistoricalView = () => {
     return(
         <Fragment>
             <HistoricalTop>
-                <h2>Hist&oacute;rico de la gu&iacute;a: <b>{idGuide}</b></h2>
+                <h2 id="historicalTitle">Hist&oacute;rico de la gu&iacute;a: <b>{idGuide}</b></h2>
             </HistoricalTop>
-            <HistoricalBase>
+            <HistoricalBase
+                aria-labelledby="historicalTitle">
                 <HistoricalTable>
                     <thead>
                         <tr>

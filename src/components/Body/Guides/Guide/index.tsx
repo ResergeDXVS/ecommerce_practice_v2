@@ -27,17 +27,21 @@ const Guide = ({id_guide, origin, destination, recipient, datetime, state, updat
                 {
                     state!=="delivered" &&
                     (<GuideButton
-                    onClick={update}>
+                        aria-label="Botón para actualizar el paquete al siguiente estado"
+                        onClick={update}>
                         <p>Actualizar Estado</p>
                         <img 
+                            aria-label="Icono de actualizar estado"
                             src="/img/icons/update.svg"
                             alt="Actualizar Estado"/>
                     </GuideButton>)
                 }
                 <GuideButton
+                    aria-label="Botón para mostrar el historial del paquete"
                     onClick={historical}>
                     <p>Ver Historial</p>
                     <img 
+                        aria-label="Icono de ver historial"
                         src="/img/icons/historical.svg"
                         alt="Ver Historial"/>
                 </GuideButton>

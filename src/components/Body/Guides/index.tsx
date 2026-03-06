@@ -18,9 +18,9 @@ const GuideStructure = () => {
     };
 
     return (
-        <GuideBase>
+        <GuideBase aria-labelledby="guideTitle">
             <div>
-                <h3>Listado de Guías</h3>
+                <h3 id="guideTitle">Listado de Guías</h3>
             </div>
             <GuideTable>
                 <GuideTHead>
