@@ -1,9 +1,9 @@
 import styled, { css } from "styled-components";
-import { AFooterStyle, FlexboxStructure, mediaAdjustments, phoneAdjustments, PWhiteStyle, PxToRem } from "../../theme/styles";
+import { AFooterStyle, FlexboxStructure, mediaAdjustments, phoneAdjustments, PStyle, PxToRem } from "../../theme/styles";
 
 const FooterStructure = styled.footer`
     font-family: ${props => props.theme.fonts.secondary};
-    background-color: $secondaryColorBlue;
+    background-color: ${p => p.theme.colors.primary};
     display: grid;
     grid-template-areas:
         "copyright copyright"
@@ -34,9 +34,9 @@ const FooterStructure = styled.footer`
 const FooterCopyrights = styled.section`
     grid-area: copyright;
     p{
-        font-size: ${PxToRem(18)};
-        font-weight: 600;
-        color: $mainColorNavy;
+        font-size: ${PxToRem(20)};
+        font-weight: 800;
+        color:  ${p => p.theme.colors.white};
         text-align: center;
         ${phoneAdjustments(css`
             font-size: ${PxToRem(16)};
@@ -54,6 +54,7 @@ const FooterPolicy = styled.section`
         ${AFooterStyle};
         font-size: ${PxToRem(16)};
         font-weight: 500;
+        color: ${p=>p.theme.colors.secondary};
         ${phoneAdjustments(css`
             gap:${PxToRem(10)};
         `)};
@@ -71,15 +72,17 @@ const FooterContacts = styled.section`
         ${FlexboxStructure("column","center","center")};
     `)};
     p{
-        ${PWhiteStyle};
+        font-size: ${PxToRem(18)};
+        ${PStyle};
         > a{
             ${AFooterStyle};
+            font-size: inherit;
             ${phoneAdjustments(css`
                 font-size: ${PxToRem(16)};
             `)};
         }
         ${phoneAdjustments(css`
-            font-size: ${PxToRem(14)};
+            font-size: ${PxToRem(16)};
         `)};
     }
 `;

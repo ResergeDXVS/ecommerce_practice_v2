@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { HeaderBase, HeaderLogo, HeaderPages } from "./styles";
+import { HeaderBase, HeaderLogo, HeaderPages, HeaderNav } from "./styles";
 
 
 
@@ -8,20 +8,39 @@ const Header = () => {
     return (
         <HeaderBase>
             <HeaderLogo 
+                aria-label="LOGO PRINCIPAL DE HOUND EXPRESS"
                 src="/img/logoAzulBlancoHE.png" 
                 alt="HOUND EXPRESS"/>
-            <HeaderPages>
-                <Link to="/">Inicio</Link>
-            </HeaderPages>
-            <HeaderPages>
-                <Link to="/guides">Registro de Guias</Link>
-            </HeaderPages>
-            <HeaderPages>
-                <Link to="/status">Estado General</Link>
-            </HeaderPages>
-            <HeaderPages>
-                <Link to="/list_guides">Lista de Guias</Link>
-            </HeaderPages>
+            <HeaderNav>
+                <HeaderPages>
+                    <Link
+                        aria-label="Ir a la página de inicio" 
+                        to="/">
+                            Inicio
+                    </Link>
+                </HeaderPages>
+                <HeaderPages>
+                    <Link 
+                        to="/guides"
+                        aria-label="Ir a la página de registros de guías">
+                            Registro de Guias
+                    </Link>
+                </HeaderPages>
+                <HeaderPages>
+                    <Link 
+                        to="/status"
+                        aria-label="Ir a la página de estado general de las guías">
+                            Estado General
+                    </Link>
+                </HeaderPages>
+                <HeaderPages>
+                    <Link 
+                        to="/list_guides"
+                        aria-label="Ir a la página del listado de guías">
+                            Lista de Guias
+                    </Link>
+                </HeaderPages>
+            </HeaderNav>
         </HeaderBase>
     );
 }
