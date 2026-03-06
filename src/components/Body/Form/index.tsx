@@ -162,11 +162,12 @@ const Form = () => {
                     onChange={handleChange}
                     $invalid={submitted && !form.state}
                     aria-label="Selecciona el estado inicial del paquete"
+                    
                     >
-                    <option value="" aria-valuetext="Sin seleccion del estado">-- Selecciona --</option>
-                    <option value={PENDING} aria-valuetext="Estado pendiente del paquete">Pendiente</option>
-                    <option value={INTRANSIT} aria-valuetext="Paquete en transito de envio">En tránsito</option>
-                    <option value={DELIVERED} aria-valuetext="Paquete entregado">Entregado</option>
+                    <option value="" aria-label="Sin seleccion del estado">-- Selecciona --</option>
+                    <option value={PENDING} aria-label="Estado pendiente del paquete">Pendiente</option>
+                    <option value={INTRANSIT} aria-label="Paquete en transito de envio">En tránsito</option>
+                    <option value={DELIVERED} aria-label="Paquete entregado">Entregado</option>
                     </FormSelect>
                     <FormFeedback
                         $invalid={submitted && !form.state}
