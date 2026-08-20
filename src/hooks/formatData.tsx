@@ -15,15 +15,14 @@ const formatDateTime = (dateString:string) => {
 /* Traducción de valores de estado */
 const translateValue = (state: string) => {
   const translations: Record<string, string> = {
-    pending: "Pendiente",
-    intransit: "En tránsito",
-    delivered: "Entregado"
+    PENDING: "Pendiente",
+    INTRANSIT: "En tránsito",
+    DELIVERED: "Entregado"
   };
 
   const normalized = state?.toUpperCase();
 
   const translated = translations[normalized] || normalized;
-
   return translated.toUpperCase();
 };
 
