@@ -12,15 +12,20 @@ const formatDateTime = (dateString:string) => {
 
 
 
-/*Traducción de valores de estado*/
-const translateValue = (state:string) => {
-    const translations:Record<string,string> = {
-        pending:"Pendiente",
-        intransit:"En Transito",
-        delivered:"Entregado",
-    }
-    return translations[state].toUpperCase();
-}
+/* Traducción de valores de estado */
+const translateValue = (state: string) => {
+  const translations: Record<string, string> = {
+    PENDING: "Pendiente",
+    INTRANSIT: "En tránsito",
+    DELIVERED: "Entregado"
+  };
+
+  const normalized = state?.toUpperCase();
+
+  const translated = translations[normalized] || normalized;
+  return translated.toUpperCase();
+};
+
 
 export {
     formatDateTime,

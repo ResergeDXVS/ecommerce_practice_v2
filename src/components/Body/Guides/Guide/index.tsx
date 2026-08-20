@@ -20,8 +20,8 @@ const Guide = ({id_guide, origin, destination, recipient, datetime, state, updat
             <GuideCell>{id_guide}</GuideCell>
             <GuideCell>{translateValue(state)}</GuideCell>
             <GuideCell>{origin}</GuideCell>
-            <GuideCell>{recipient}</GuideCell>
             <GuideCell>{destination}</GuideCell>
+            <GuideCell>{recipient}</GuideCell>
             <GuideCell>{formatDateTime(datetime)}</GuideCell>
             <GuideButtons>
                 {

@@ -1,62 +1,119 @@
-import React from "react";
-import { GuideBase, GuideTable, GuideTHead } from "./styles";
-import Guide from "./Guide";
+import React, { useEffect } from "react";
+import { GuideBase, GuideProgress, GuideTable, GuideTHead } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../../store/store";
-import { updateGuide } from "../../../store/guidesSlice";
-
+import { fetchGuide, putGuide } from "../../../slices/guideSlice/guidesSlice";
+import { GuideInfo } from "../../../store/status";
+import Guide from "./Guide";
+import { ASYNC_STATUS } from "../../../constants/asyncState";
+import { CircularProgress } from "react-loader-spinner";
+import Theme from "../../../theme";
 
 
 const GuideStructure = () => {
     const navigate = useNavigate();
+    const {guides,status}=useAppSelector(state => state.guides);
     const dispatch = useDispatch();
-    const guides = useAppSelector(state => state.guides.guides);
 
-    const updateGuideRecord = (id: string) => {
-        dispatch(updateGuide(id));
-    };
+    const updateGuideRecord = (guide:GuideInfo)=>{
+        let new_status="";
+        if(guide.status === "pending"){
+            new_status = "intransit";
+        }else if(guide.status === "intransit"){
+            new_status = "delivered";
+        }
+        const new_guide: GuideInfo = {
+            id:guide.id,
+            id_guide: guide.id_guide,
+            origin: guide.origin, 
+            destiny: guide.destiny, 
+            recipient: guide.recipient,
+            status: new_status,
+            datetime_created: guide.datetime_created,
+            datetime_updated: guide.datetime_updated
+        }
+        dispatch(putGuide(new_guide) as any);
+    }
+    useEffect(() => {
+        dispatch(fetchGuide() as any);
+    }, [dispatch]);
 
-    return (
-        <GuideBase aria-labelledby="guideTitle">
-            <div>
-                <h3 id="guideTitle">Listado de Guías</h3>
-            </div>
-            <GuideTable>
-                <GuideTHead>
-                    <tr>
-                        <th><strong>Número de guía</strong></th>
-                        <th><strong>Estado actual</strong></th>
-                        <th><strong>Destinatario</strong></th>
-                        <th><strong>Origen</strong></th>
-                        <th><strong>Destino</strong></th>
-                        <th><strong>Fecha de última actualización</strong></th>
-                        <th><strong>Acciones</strong></th>
-                    </tr>
-                </GuideTHead>
-                    <tbody>
-                    {
-                        guides && (guides.map(data => {
-                            const { id, origin, destiny, recipient, dateCreate, state } = data;
-                            return (
-                            <Guide
-                                key={id}
-                                id_guide={id}
-                                origin={origin}
-                                destination={destiny}
-                                recipient={recipient}
-                                datetime={dateCreate}
-                                state={state}
-                                update={() => updateGuideRecord(id)}
-                                historical={() => navigate(`/guides/${id}`)}
-                            />
-                            );
-                        }))
-                    }
-                    </tbody>
-            </GuideTable>
-        </GuideBase>
-    );
+    if(status===ASYNC_STATUS.PENDING){
+        return(
+            <GuideBase>
+                <div>
+                    <h3>Cargando...</h3>
+                </div>
+                <GuideProgress>
+                    <CircularProgress
+                        height="100"
+                        width="100"
+                        color={Theme.colors.secondary}
+                        ariaLabel="circular-progress-loading"
+                        wrapperStyle={{}}
+                        wrapperClass="wrapper-class"
+                        visible={true}
+                        strokeWidth={2}
+                        animationDuration={1}
+                    />
+                </GuideProgress>
+            </GuideBase>
+        );
+
+    }
+    else if(status===ASYNC_STATUS.REJECTED){
+        return(
+            <GuideBase>
+                <div>
+                    <h3>Error de carga de guías</h3>
+                </div>
+            </GuideBase>
+        );
+    }else{
+        return (
+            <GuideBase aria-labelledby="guideTitle">
+                
+                <div>
+                    <h3 id="guideTitle">Listado de Guías</h3>
+                </div>
+                <GuideTable>
+                    <GuideTHead>
+                        <tr>
+                            <th><strong>Número de guía</strong></th>
+                            <th><strong>Estado actual</strong></th>
+                            <th><strong>Origen</strong></th>
+                            <th><strong>Destino</strong></th>
+                            <th><strong>Destinatario</strong></th>
+                            <th><strong>Fecha de última actualización</strong></th>
+                            <th><strong>Acciones</strong></th>
+                        </tr>
+                    </GuideTHead>
+                        <tbody>
+                        {
+                            guides && (guides.map(data => {
+                                const { id, id_guide, origin, destiny, recipient, datetime_updated, status } = data;
+                                return (
+                                <Guide
+                                    key={id}
+                                    id_guide={id_guide}
+                                    origin={origin}
+                                    destination={destiny}
+                                    recipient={recipient}
+                                    datetime={datetime_updated ?? ""}
+                                    state={status}
+                                    update={() => updateGuideRecord(data)}
+                                    historical={() => navigate(`/guides/${id}`)}
+                                />
+                                );
+                            }))
+                        }
+                        </tbody>
+                </GuideTable>
+            </GuideBase>
+        );
+    }
+    
 };
 
 export default GuideStructure;

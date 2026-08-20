@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { FlexboxStructure, H2BlueStyle, mediaAdjustments, phoneAdjustments, PxToRem } from "../../../theme/styles";
+import { FlexboxStructure, H2BlueStyle, mediaAdjustments, phoneAdjustments, PTagStyle, PxToRem } from "../../../theme/styles";
 interface FormCheck {
     $invalid: boolean|null, 
 }
@@ -183,6 +183,20 @@ const FormDecoration = styled.article`
     `)};
 `;
 
+const FormMessages = styled.div`
+    width: 100%;
+    padding: 3% 12%;
+    box-sizing: border-box;
+    display: grid;
+    p{
+        ${PTagStyle};
+        padding: 18px 10px;
+        text-align: center;
+        ${phoneAdjustments(css`
+            font-size: ${PxToRem(16)};
+        `)};
+    }
+`;
 
 
 export {
@@ -195,5 +209,6 @@ export {
     FormSelect,
     FormButtonSubmit,
     FormDecoration,
-    FormFeedback
+    FormFeedback,
+    FormMessages
 }

@@ -1,25 +1,28 @@
 import React, { useState } from "react";
-import { FormBase, FormButtonSubmit, FormDecoration, FormFeedback, FormFieldset, FormInput, FormLabel, FormLine, FormSelect, FormStructure } from "./styles";
+import { FormBase, FormButtonSubmit, FormDecoration, FormFeedback, FormFieldset, FormInput, FormLabel, FormLine, FormMessages, FormSelect, FormStructure } from "./styles";
 import { useDispatch } from "react-redux";
-import { addGuide } from "../../../store/guidesSlice";
-import { DELIVERED, FormState, GuideInfo, INTRANSIT, PENDING } from "../../../store/status";
+import { DELIVERED, GuideInfo, INTRANSIT, PENDING } from "../../../store/status";
+import { createGuide } from "../../../slices/formSlice/formSlice";
+import { ASYNC_STATUS } from "../../../constants/asyncState";
 import { useAppSelector } from "../../../store/store";
+
 
 
 
 const Form = () => {
     const [submitted, setSubmitted] = useState<boolean|null>(null);
     const dispatch = useDispatch();
-    const list_guides = useAppSelector(state => state.guides.guides);
-    const [form, setForm] = useState<FormState>({
+    const { status } = useAppSelector(state=> state.guides);
+
+    const [form, setForm] = useState({
         id_guide: "",
         origin: "",
-        destination: "",
+        destiny: "",
         recipient: "",
-        datetime: "",
-        state: "",
+        datetime_created: "",
+        status: "",
     });
-    
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setForm(prev => ({ ...prev, [name]: value }));
@@ -29,38 +32,33 @@ const Form = () => {
         e.preventDefault();
         if (!form.id_guide ||
             !form.origin ||
-            !form.destination ||
+            !form.destiny ||
             !form.recipient ||
-            !form.datetime ||
-            !form.state) {
+            !form.datetime_created ||
+            !form.status) {
                 setSubmitted(true);
             return;
         }
-        const index = list_guides.find(p=>p.id===form.id_guide);
-        if (index){
-            alert(`El Registro de guía ${form.id_guide} ya existe, favor de revisar los datos.`);
-            return;
-        }
         const newGuide:GuideInfo = {
-            id: form.id_guide,
+            id_guide: form.id_guide,
             origin: form.origin.toUpperCase(), 
-            destiny: form.destination.toUpperCase(), 
+            destiny: form.destiny.toUpperCase(), 
             recipient: form.recipient.toUpperCase(),
-            dateCreate: form.datetime.toUpperCase(),
-            state: form.state
+            datetime_created: form.datetime_created.toUpperCase(),
+            datetime_updated: form.datetime_created.toUpperCase(),
+            status: form.status
         }
-        dispatch(addGuide(newGuide));
+        console.log(newGuide);
+        dispatch(createGuide(newGuide) as any);
         setForm({
             id_guide: "",
             origin: "",
-            destination: "",
+            destiny: "",
             recipient: "",
-            datetime: "",
-            state: "",
+            datetime_created: "",
+            status: "",
         });
         setSubmitted(null);
-        alert(`Registro de guía ${form.id_guide} guardada correctamente.`);
-        
     };
 
     return (
@@ -103,18 +101,18 @@ const Form = () => {
                 </FormLine>
 
                 <FormLine>
-                    <FormLabel htmlFor="destination">Destino:</FormLabel>
+                    <FormLabel htmlFor="destiny">Destino:</FormLabel>
                     <FormInput
-                    id="destination"
-                    name="destination"
+                    id="destiny"
+                    name="destiny"
                     type="text"
-                    value={form.destination}
+                    value={form.destiny}
                     onChange={handleChange}
-                    $invalid={submitted && !form.destination}
+                    $invalid={submitted && !form.destiny}
                     aria-label="Ingresa el lugar de destino del paquete"
                     />
                     <FormFeedback
-                        $invalid={submitted && !form.destination}
+                        $invalid={submitted && !form.destiny}
                         >Por favor ingresa el destino.
                     </FormFeedback>
                 </FormLine>
@@ -137,30 +135,30 @@ const Form = () => {
                 </FormLine>
 
                 <FormLine>
-                    <FormLabel htmlFor="datetime">Fecha de creación:</FormLabel>
+                    <FormLabel htmlFor="datetime_created">Fecha de creación:</FormLabel>
                     <FormInput
-                    id="datetime"
-                    name="datetime"
+                    id="datetime_created"
+                    name="datetime_created"
                     type="datetime-local"
-                    value={form.datetime}
+                    value={form.datetime_created}
                     onChange={handleChange}
-                    $invalid={submitted && !form.datetime}
+                    $invalid={submitted && !form.datetime_created}
                     aria-label="Ingresa la fecha de creación del registro del paquete"
                     />
                     <FormFeedback
-                        $invalid={submitted && !form.datetime}
+                        $invalid={submitted && !form.datetime_created}
                         >Por favor selecciona una fecha y hora.
                     </FormFeedback>
                 </FormLine>
 
                 <FormLine>
-                    <FormLabel htmlFor="state">Selecciona el estado inicial</FormLabel>
+                    <FormLabel htmlFor="status">Selecciona el estado inicial</FormLabel>
                     <FormSelect
-                    id="state"
-                    name="state"
-                    value={form.state}
+                    id="status"
+                    name="status"
+                    value={form.status}
                     onChange={handleChange}
-                    $invalid={submitted && !form.state}
+                    $invalid={submitted && !form.status}
                     aria-label="Selecciona el estado inicial del paquete"
                     
                     >
@@ -170,7 +168,7 @@ const Form = () => {
                     <option value={DELIVERED} aria-label="Paquete entregado">Entregado</option>
                     </FormSelect>
                     <FormFeedback
-                        $invalid={submitted && !form.state}
+                        $invalid={submitted && !form.status}
                     >Debes seleccionar un estado.</FormFeedback>
                 </FormLine>
 
@@ -182,7 +180,15 @@ const Form = () => {
                         value="REGISTRAR" />
                 </FormLine>
                 </FormFieldset>
+                <FormMessages>
+                    {status === ASYNC_STATUS.PENDING && <p>Guardando guía...</p>}
+                    {status === ASYNC_STATUS.FULFILLED && <p>Guía registrada correctamente.</p>}
+                    {status === ASYNC_STATUS.REJECTED && <p style={{color:"red"}}> Error en registro. Intentelo de nuevo.</p>}
+                </FormMessages>
+
+                
             </FormStructure>
+            
             <FormDecoration>
                 <img
                     aria-label="Icono decorativo del registro" 

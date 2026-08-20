@@ -33,7 +33,7 @@ function App() {
 						element={<StatusView/>}/>
 					<Route 
 						path="/list_guides"
-						element={<GuideStructure list={[]}/>}/>
+						element={<GuideStructure/>}/>
 				</Routes>
 			</div>
 			<Footer/>
