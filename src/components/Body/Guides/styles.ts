@@ -72,8 +72,16 @@ const GuideTHead = styled.thead`
     }
 `;
 
+const GuideProgress = styled.div`
+    ${FlexboxStructure("row","center","center")};
+    background-color:${props=>props.theme.colors.primary};
+    padding: 3% 2%;
+    height: 20%;
+`;
+
 export {
     GuideBase,
     GuideTable,
-    GuideTHead
+    GuideTHead,
+    GuideProgress
 }

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { FormBase, FormButtonSubmit, FormDecoration, FormFeedback, FormFieldset, FormInput, FormLabel, FormLine, FormSelect, FormStructure } from "./styles";
-import { useDispatch, useSelector } from "react-redux";
-import { DELIVERED, FormState, GuideInfo, INTRANSIT, PENDING } from "../../../store/status";
-import { useTheme } from "styled-components";
+import { FormBase, FormButtonSubmit, FormDecoration, FormFeedback, FormFieldset, FormInput, FormLabel, FormLine, FormMessages, FormSelect, FormStructure } from "./styles";
+import { useDispatch } from "react-redux";
+import { DELIVERED, GuideInfo, INTRANSIT, PENDING } from "../../../store/status";
 import { createGuide } from "../../../slices/formSlice/formSlice";
+import { ASYNC_STATUS } from "../../../constants/asyncState";
+import { useAppSelector } from "../../../store/store";
 
 
 
@@ -11,6 +12,7 @@ import { createGuide } from "../../../slices/formSlice/formSlice";
 const Form = () => {
     const [submitted, setSubmitted] = useState<boolean|null>(null);
     const dispatch = useDispatch();
+    const { status } = useAppSelector(state=> state.guides);
 
     const [form, setForm] = useState({
         id_guide: "",
@@ -178,7 +180,15 @@ const Form = () => {
                         value="REGISTRAR" />
                 </FormLine>
                 </FormFieldset>
+                <FormMessages>
+                    {status === ASYNC_STATUS.PENDING && <p>Guardando guía...</p>}
+                    {status === ASYNC_STATUS.FULFILLED && <p>Guía registrada correctamente.</p>}
+                    {status === ASYNC_STATUS.REJECTED && <p style={{color:"red"}}> Error en registro. Intentelo de nuevo.</p>}
+                </FormMessages>
+
+                
             </FormStructure>
+            
             <FormDecoration>
                 <img
                     aria-label="Icono decorativo del registro" 
