@@ -23,7 +23,7 @@ describe("HistoricalView component", () => {
                     <Routes>
                         <Route 
                             path="/guides/:idGuide"
-                            element={<HistoricalView/>}
+                            element={<HistoricalView />}
                         />
                     </Routes>
                 </MemoryRouter>

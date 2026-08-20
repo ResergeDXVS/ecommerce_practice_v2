@@ -53,12 +53,12 @@ describe("Guides Structure component",()=>{
             guides: {
                 guides:[
                     {
-                        id:"121",
+                        id_guide:"121",
                         origin:"CDMX",
                         destiny:"TORREON",
                         recipient:"ALAN JUAREZ",
-                        dateCreate:"2026-12-25T09:00:00",
-                        state:"pending",
+                        datetime_created:"2026-12-25T09:00:00",
+                        status:"pending",
                     }
                 ]
             }
@@ -76,12 +76,12 @@ describe("Guides Structure component",()=>{
             guides: {
                 guides:[
                     {
-                        id:"121",
+                        id_guide:"121",
                         origin:"CDMX",
                         destiny:"TORREON",
                         recipient:"ALAN JUAREZ",
-                        dateCreate:"2026-12-25T09:00:00",
-                        state:"pending",
+                        datetime_created:"2026-12-25T09:00:00",
+                        status:"pending",
                     }
                 ]
             }
@@ -105,12 +105,12 @@ describe("Guides Structure component",()=>{
                 guides: {
                     guides: [
                         {
-                            id: "121",
+                            id_guide: "121",
                             origin: "CDMX",
                             destiny: "TORREON",
                             recipient: "ALAN JUAREZ",
-                            dateCreate: "2026-12-25T09:00:00",
-                            state: "pending",
+                            datetime_created: "2026-12-25T09:00:00",
+                            status: "pending",
                         }
                     ]
                 }

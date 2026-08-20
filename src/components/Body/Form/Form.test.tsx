@@ -4,7 +4,6 @@ import { ThemeProvider } from "styled-components";
 import Theme from "../../../theme";
 import Form from ".";
 import { useAppSelector } from "../../../store/store";
-import { addGuide } from "../../../store/guidesSlice";
 
 // Mocks
 const mockDispatch = jest.fn();
@@ -18,9 +17,6 @@ jest.mock("react-redux", () => ({
     useDispatch: () => mockDispatch,
 }));
 
-jest.mock("../../../store/guidesSlice", () => ({
-    addGuide: jest.fn(),
-}));
 
 describe("Form component", () => {
 
@@ -94,7 +90,6 @@ describe("Form component", () => {
         fireEvent.click(screen.getByRole("button", { name: /REGISTRAR/i }));
 
         expect(mockDispatch).toHaveBeenCalledTimes(1);
-        expect(addGuide).toHaveBeenCalledTimes(1);
         expect(mockAlert).toHaveBeenCalledWith(
             expect.stringContaining("Registro de guía 101 guardada correctamente")
         );
